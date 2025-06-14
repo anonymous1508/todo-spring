@@ -25,17 +25,20 @@ public class TaskController {
         this.taskService = taskService;
     }
     
-@GetMapping
-public String getTasks(Model model){
-    List<Task> tasks = taskService.getAllTasks();
-    model.addAttribute("tasks", tasks);
-    return "tasks"; // Ensure you have src/main/resources/templates/tasks.html
-}
-@PostMapping
-public String postMethodName(@RequestParam String title) {
-    taskService.createTask(title);
-    return "redirect:/tasks";
-}
+    @GetMapping("/tasks")
+    public String getTasks(Model model){
+        List<Task> tasks = taskService.getAllTasks();
+        model.addAttribute("tasks", tasks);
+        return "tasks"; // This should return the name of the view to render
+    }
+    @PostMapping("/tasks")
+    public String postMethodName(@RequestParam String title) {
+        taskService.createTask(title);
+        return "redirect:/tasks";
+ 
+        
+       
+    }
     @GetMapping("/{id}/delete")
     public String deleteTask(@PathVariable Long id){
         taskService.deleteTask(id);
